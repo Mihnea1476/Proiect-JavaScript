@@ -1,85 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+* {
+    box-sizing: border-box; 
+}
+
 body {
-    font-family: sans-serif;
-    background-color: #121212; 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #1a1a1a 0%, #121212 100%) fixed;
     color: white;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+#login-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     text-align: center;
-    padding: 50px;
 }
 
-.hidden {
-    display: none; 
+#login-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: #1db954;
+    text-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+    letter-spacing: -1px;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #1db954; 
+#login-btn {
+    background-color: #1db954;
+    color: black;
+    padding: 16px 45px;
+    border-radius: 50px;
     border: none;
-    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 20px rgba(29, 185, 84, 0.3);
+}
+
+#login-btn:hover {
+    background-color: #1ed760;
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(29, 185, 84, 0.5);
+}
+
+#content-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+section {
+    margin-bottom: 50px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+    display: inline-block;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #1db954;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+input[type="text"] {
+    background-color: #2a2a2a;
     color: white;
-    font-weight: bold;
+    padding: 14px 25px;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    outline: none;
+    font-size: 1rem;
+    width: 350px;
+    transition: 0.3s;
+    font-family: inherit;
+}
+
+input[type="text"]:focus {
+    background-color: #333;
+    border-color: #555;
+    width: 370px;
+}
+
+#search-btn, #recommend-btn {
+    background-color: #1db954;
+    color: black;
+    padding: 14px 30px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#search-btn:hover, #recommend-btn:hover {
+    transform: scale(1.05);
+    background-color: #1ed760;
+}
+
+#logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid #555;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#logout-btn:hover {
+    background: white;
+    color: black;
+    border-color: white;
+}
+
+#top-artists-container, 
+#top-albums-container, 
+#playlists-container, 
+#search-results,
+#recommendations-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: flex-start;
+}
+
+#top-artists-container > div,
+#top-albums-container > div,
+#playlists-container > div,
+#search-results > div,
+#recommendations-container > div {
+    background-color: #181818 !important;
+    padding: 20px !important;
+    border-radius: 10px !important;
+    width: 180px !important;
+    text-align: left !important;
+    border: none !important;
+    transition: background-color 0.3s, transform 0.3s ease !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    cursor: pointer;
+}
+
+#top-artists-container > div:hover,
+#top-albums-container > div:hover,
+#playlists-container > div:hover,
+#search-results > div:hover,
+#recommendations-container > div:hover {
+    background-color: #282828 !important;
+    transform: translateY(-8px) !important;
+}
+
+#top-artists-container img, 
+#top-albums-container img,
+#playlists-container img,
+#search-results img,
+#recommendations-container img {
+    width: 100% !important;
+    height: 140px !important;
+    object-fit: cover !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+    margin-bottom: 15px !important;
+}
+
+#top-artists-container img {
+    border-radius: 50% !important;
+    height: 140px !important;
+}
+
+h3 {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 5px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p {
+    font-size: 0.85rem !important;
+    color: #a7a7a7 !important;
 }
 
 .modal {
-    position: fixed; /* Stă fix pe ecran, chiar dacă dai scroll */
-    z-index: 1000; /* Stă peste orice alt element */
+    position: fixed;
+    z-index: 9999;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Negru transparent */
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
     display: flex;
-    justify-content: center; /* Centrare orizontală */
-    align-items: center; /* Centrare verticală */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: modalFadeIn 0.3s forwards;
 }
 
-/* Cutia propriu-zisă */
 .modal-content {
-    background-color: #181818;
-    padding: 30px;
+    background-color: #242424;
+    padding: 40px;
     border-radius: 15px;
-    width: 80%;
-    max-width: 500px;
-    border: 1px solid #282828;
-    color: white;
-    max-height: 80vh; /* Să nu fie mai înaltă decât ecranul */
-    overflow-y: auto; /* Să putem da scroll doar în listă */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    border: 1px solid #333;
 }
 
-/* Butonul X de închidere */
+#modal-album-name {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: white;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+}
+
+#modal-tracks-list li {
+    padding: 12px 15px;
+    border-radius: 5px;
+    transition: 0.2s;
+    border-bottom: 1px solid #2f2f2f;
+}
+
+#modal-tracks-list li:hover {
+    background-color: #3a3a3a;
+}
+
 .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
     color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .close-btn:hover {
     color: white;
 }
 
-/* Lista de piese */
-#modal-tracks-list {
-    list-style-type: none; /* Fără puncte */
-    padding: 0;
-    text-align: left;
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #121212; 
+}
+::-webkit-scrollbar-thumb {
+    background: #555; 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #888; 
 }
 
-#modal-tracks-list li {
-    padding: 10px;
-    border-bottom: 1px solid #333;
-    display: flex;
-    justify-content: space-between;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-#modal-tracks-list li:hover {
-    background-color: #282828;
+@keyframes modalFadeIn {
+    to { opacity: 1; }
 }
 
-/* Clasa helper pentru a ascunde elemente (probabil o ai deja) */
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }

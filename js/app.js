@@ -16,7 +16,28 @@ async function main()
 {
     const urlToken = await handleRedirect();
     const storedToken = localStorage.getItem("spotify_token");
-    const token = urlToken || storedToken;
+    let token = null;
+
+    if (urlToken) 
+    {
+        token = urlToken;
+    } 
+    else 
+    {
+        if (isTokenExpired()) 
+        {
+            console.warn("Token-ul a expirat (a trecut 1 oră). Delogare automată.");
+            
+            localStorage.removeItem("spotify_token");
+            localStorage.removeItem("token_timestamp");
+            localStorage.removeItem("code_verifier");
+            token = null;
+        } 
+        else 
+        {
+            token = localStorage.getItem("spotify_token");
+        }
+    }
 
     if (token) 
     {
@@ -56,6 +77,7 @@ async function main()
         document.getElementById("logout-btn").addEventListener("click", () => 
         {
             localStorage.removeItem("spotify_token");
+            localStorage.removeItem("token_timestamp");
             localStorage.removeItem("code_verifier");
             window.location.href = "index.html";
         });
@@ -69,6 +91,21 @@ async function main()
             loginBtn.addEventListener("click", redirectToSpotify);
         }
     }
+}
+
+
+function isTokenExpired() {
+    const timestamp = localStorage.getItem("token_timestamp");
+    if (!timestamp) return true; // Dacă nu scrie data, e dubios -> considerăm expirat
+
+    const now = new Date().getTime();
+    const oneHour = 3600 * 1000; // 3600 secunde * 1000 ms
+
+    // Dacă timpul actual - timpul salvat > 1 oră
+    if (now - parseInt(timestamp) > oneHour) {
+        return true;
+    }
+    return false;
 }
 
 
@@ -112,6 +149,14 @@ function setupSearch(token)
         }
         const results = await searchSpotify(token, query);
         displaySearchResults(results);
+    });
+
+
+    searchInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") 
+        {
+            searchBtn.click();
+        }
     });
 }
 

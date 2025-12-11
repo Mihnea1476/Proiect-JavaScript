@@ -79,6 +79,8 @@ export async function handleRedirect()
         if (data.access_token) 
         {
             localStorage.setItem('spotify_token', data.access_token);
+            const now = new Date().getTime();
+            localStorage.setItem('token_timestamp', now);
             window.history.replaceState({}, document.title, "/index.html");
             return data.access_token;
         } 

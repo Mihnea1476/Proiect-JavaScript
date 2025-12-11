@@ -1,5 +1,6 @@
 import { fetchAlbumTracks, fetchPlaylistTracks } from './api.js';
 
+
 export function openInSpotify(url) 
 {
     if (url) 
@@ -11,6 +12,53 @@ export function openInSpotify(url)
         alert("Link-ul către Spotify nu este disponibil.");
     }
 }
+
+
+export function showLastPlayedBar() 
+{
+    const storageKey = getUserKey();
+    if (!storageKey) return; 
+
+    const lastPlayedData = localStorage.getItem(storageKey);
+    
+    if (!lastPlayedData) 
+    {
+        const existingBar = document.getElementById("resume-bar");
+        if (existingBar) existingBar.remove();
+        return; 
+    }
+
+    const track = JSON.parse(lastPlayedData);
+    
+    let barContainer = document.getElementById("resume-bar");
+    if (!barContainer) 
+    {
+        barContainer = document.createElement("div");
+        barContainer.id = "resume-bar";
+        document.body.appendChild(barContainer);
+    }
+
+    barContainer.innerHTML = `
+        <div class="resume-content" onclick="window.open('${track.url}', '_blank')">
+            <img src="${track.image}" alt="Cover">
+            <div class="resume-text">
+                <span style="font-size: 10px; color: #1db954; font-weight: bold; letter-spacing: 1px;">CONTINUĂ SĂ ASCULȚI</span>
+                <span class="track-title" style="font-size: 14px; color: white;">${track.name} • ${track.artist}</span>
+            </div>
+            <div class="resume-play">▶</div>
+        </div>
+        <div class="resume-close" id="close-resume">✖</div>
+    `;
+
+    document.getElementById("close-resume").addEventListener("click", (e) => 
+    {
+        e.stopPropagation();
+        barContainer.remove();
+        localStorage.removeItem(storageKey);
+    });
+}
+
+
 
 export function populateUI(profile) 
 {
@@ -93,8 +141,7 @@ export function displayTopAlbums(albums)
         card.addEventListener("click", () => openAlbumModal(album.id, album.name));
         
         const playBtn = card.querySelector(".quick-play-btn");
-        playBtn.addEventListener("click", (e) => 
-        {
+        playBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             openInSpotify(album.url);
         });
@@ -130,8 +177,7 @@ export function displayPlaylists(playlists)
         card.addEventListener("click", () => openPlaylistModal(playlist.id, playlist.name));
         
         const playBtn = card.querySelector(".quick-play-btn");
-        playBtn.addEventListener("click", (e) => 
-        {
+        playBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             openInSpotify(playlist.external_urls.spotify);
         });
@@ -160,7 +206,9 @@ export function displaySearchResults(data, containerId = "search-results")
             <h3 style="font-size: 14px; margin: 0; color: white;">${artist.name}</h3>
             <p style="font-size: 12px; color: #1db954;">Artist</p>
         `;
-        card.onclick = () => openInSpotify(artist.external_urls.spotify);
+
+        card.onclick = () => openInSpotify(track.external_urls.spotify);
+
         container.appendChild(card);
     });
 
@@ -254,6 +302,7 @@ function populateTrackList(listContainer, tracks)
         
         const btn = li.querySelector(".play-btn-small");
         btn.onclick = () => openInSpotify(track.external_urls.spotify);
+        
         listContainer.appendChild(li);
     });
 }
