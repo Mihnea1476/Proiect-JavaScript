@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>MusicApp</title>
+</head>
+    <body>
+        <div id="app">
+        <section id="login-section">
+            <h1>MusicApp Player</h1>
+            <button id="login-btn">Login with Spotify</button>
+        </section>
+
+        <section id="content-section" class="hidden">
+            <header>
+                <div id="profile-data">
+                    </div>
+                <button id="logout-btn">Logout</button>
+            </header>
+
+            <section>
+                <h2>Top 5 Artiștii Tăi</h2>
+                <div id="top-artists-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                </div>
+            </section>
+            
+            <hr style="margin: 40px 0; border-color: #333;">
+            
+            <section>
+                <h2>Top 5 Albume Ascultate</h2>
+                
+                <div id="top-albums-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                </div>
+            </section>
+
+            <hr style="margin: 40px 0; border-color: #333;">
+            
+            <section>
+                <h2>Playlist-urile Tale</h2>
+                <div id="playlists-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">                        </div>
+            </section>
+
+            <hr style="margin: 40px 0; border-color: #333;">
+
+            <section style="text-align: center; margin-bottom: 50px;">
+                <h2>Descoperă Muzică Nouă</h2>
+                <p style="color: #aaa; margin-bottom: 20px;">Bazat pe artiștii tăi preferați</p>
+                
+                <button id="recommend-btn" style="background-color: #1db954; color: white; padding: 15px 30px; border: none; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s;">
+                    ✨ Generează Mix-ul Meu
+                </button>
+
+                <div id="recommendations-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px;">
+                </div>
+            </section>
+
+            <main>
+                <div class="search-container" style="margin-top: 50px; margin-bottom: 20px;">
+                    <input type="text" id="search-input" placeholder="Caută artiști sau piese..." 
+                        style="padding: 10px; width: 300px; border-radius: 20px; border: none; outline: none;">
+                    <button id="search-btn">Search</button>
+                </div>
+
+                <div id="search-results" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 50px;"></div>
+            </main>
+        </section>
+    </div>
+
+    <div id="tracks-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal" class="close-btn">&times;</span>
+            <h2 id="modal-album-name">Nume Album</h2>
+            <ul id="modal-tracks-list">
+            </ul>
+        </div>
+    </div>
+
+
+    <script type="module" src="js/app.js"></script>
+    </body>
+</html>

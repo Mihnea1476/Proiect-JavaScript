@@ -1,0 +1,85 @@
+body {
+    font-family: sans-serif;
+    background-color: #121212; 
+    color: white;
+    text-align: center;
+    padding: 50px;
+}
+
+.hidden {
+    display: none; 
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #1db954; 
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.modal {
+    position: fixed; /* Stă fix pe ecran, chiar dacă dai scroll */
+    z-index: 1000; /* Stă peste orice alt element */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Negru transparent */
+    display: flex;
+    justify-content: center; /* Centrare orizontală */
+    align-items: center; /* Centrare verticală */
+}
+
+/* Cutia propriu-zisă */
+.modal-content {
+    background-color: #181818;
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    border: 1px solid #282828;
+    color: white;
+    max-height: 80vh; /* Să nu fie mai înaltă decât ecranul */
+    overflow-y: auto; /* Să putem da scroll doar în listă */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* Butonul X de închidere */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+/* Lista de piese */
+#modal-tracks-list {
+    list-style-type: none; /* Fără puncte */
+    padding: 0;
+    text-align: left;
+}
+
+#modal-tracks-list li {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+}
+
+#modal-tracks-list li:hover {
+    background-color: #282828;
+}
+
+/* Clasa helper pentru a ascunde elemente (probabil o ai deja) */
+.hidden {
+    display: none !important;
+}
